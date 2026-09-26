@@ -18,12 +18,22 @@ function getMessageGuidance(reason) {
 
 function validateContact(values) {
   const errors = {};
-  if (!values.nombre?.trim()) errors.nombre = 'Ingresá tu nombre.';
-  if (!values.apellido?.trim()) errors.apellido = 'Ingresá tu apellido.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email?.trim() || '')) errors.email = 'Ingresá un email válido.';
-  if (values.telefono?.trim() && values.telefono.replace(/\D/g, '').length < 7) errors.telefono = 'Ingresá un teléfono válido o dejá el campo vacío.';
+  const name = values.nombre?.trim() || '';
+  const lastName = values.apellido?.trim() || '';
+  const email = values.email?.trim() || '';
+  const phone = values.telefono?.trim() || '';
+  const message = values.mensaje?.trim() || '';
+  if (!name) errors.nombre = 'Ingresá tu nombre.';
+  else if (name.length > 80) errors.nombre = 'El nombre debe tener 80 caracteres o menos.';
+  if (!lastName) errors.apellido = 'Ingresá tu apellido.';
+  else if (lastName.length > 80) errors.apellido = 'El apellido debe tener 80 caracteres o menos.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Ingresá un email válido.';
+  else if (email.length > 254) errors.email = 'El email debe tener 254 caracteres o menos.';
+  if (phone && phone.replace(/\D/g, '').length < 7) errors.telefono = 'Ingresá un teléfono válido o dejá el campo vacío.';
+  else if (phone.length > 40) errors.telefono = 'El teléfono debe tener 40 caracteres o menos.';
   if (!contactReasons.has(values.motivo)) errors.motivo = 'Seleccioná el motivo de tu consulta.';
-  if ((values.mensaje?.trim() || '').length < 10) errors.mensaje = 'Contanos un poco más (al menos 10 caracteres).';
+  if (message.length < 10) errors.mensaje = 'Contanos un poco más (al menos 10 caracteres).';
+  else if (message.length > 2000) errors.mensaje = 'El mensaje debe tener 2000 caracteres o menos.';
   if (!values.aceptacion) errors.aceptacion = 'Confirmá que entendés cómo funciona esta demostración.';
   return errors;
 }
@@ -101,5 +111,7 @@ if (typeof document !== 'undefined') {
       form.hidden = false;
       form.elements.namedItem('nombre').focus();
     });
+
+    form.hidden = false;
   }
 }

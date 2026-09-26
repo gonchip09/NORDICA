@@ -50,7 +50,7 @@ if (typeof document !== 'undefined' && document.body && typeof HTMLDialogElement
             <p id="newsletter-description">Probá cómo sería recibir novedades de propiedades seleccionadas.</p>
             <form class="newsletter-dialog__form">
               <label for="newsletter-email">Tu correo electrónico</label>
-              <input id="newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required>
+              <input id="newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" maxlength="254" required>
               <button class="button button--dark" type="submit">Simular suscripción</button>
             </form>
             <div class="newsletter-dialog__success" role="status" hidden>

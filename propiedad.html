@@ -9,11 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=29">
+    <link rel="stylesheet" href="css/styles.css?v=32">
     <script src="js/main.js?v=10" defer></script>
-    <script src="js/newsletter.js?v=3" defer></script>
+    <script src="js/newsletter.js?v=4" defer></script>
     <script src="js/propiedades.js?v=6" defer></script>
-    <script src="js/propiedad.js?v=4" defer></script>
+    <script src="js/propiedad.js?v=5" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -59,10 +59,12 @@
         <a class="button button--dark" href="propiedades.html">Ver todas las propiedades</a>
       </section>
 
+      <noscript><p class="demo-unavailable container">Para ver los detalles y simular una consulta, activá JavaScript. El formulario de demostración no envía ni guarda datos.</p></noscript>
+
       <div id="detail-content" hidden>
         <section class="detail-gallery-section" aria-label="Galería de imágenes ilustrativas">
           <div class="detail-gallery" id="detail-gallery"></div>
-          <p class="detail-gallery__note container">Imágenes ilustrativas de este proyecto conceptual. Las fotografías complementarias pueden corresponder a distintos espacios.</p>
+          <p class="detail-gallery__note container">Proyecto conceptual: la primera imagen identifica el anuncio; las demás son referencias visuales de otros espacios y no muestran esta propiedad.</p>
         </section>
 
         <section class="detail-body" aria-labelledby="detail-information-title">
@@ -90,26 +92,26 @@
               <h2 id="detail-visit-title">¿Querés conocer esta propiedad?</h2>
               <p>Completá los datos para simular una consulta de visita.</p>
 
-              <form id="visit-form" novalidate>
+              <form id="visit-form" novalidate hidden>
                 <input id="visit-property" name="propiedad" type="hidden">
                 <div class="detail-visit__field">
                   <label for="visit-name">Nombre *</label>
-                  <input id="visit-name" name="nombre" type="text" autocomplete="given-name" required aria-describedby="visit-nombre-error">
+                  <input id="visit-name" name="nombre" type="text" autocomplete="given-name" maxlength="80" required aria-describedby="visit-nombre-error">
                   <span id="visit-nombre-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <div class="detail-visit__field">
                   <label for="visit-email">Email *</label>
-                  <input id="visit-email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="visit-email-error">
+                  <input id="visit-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="visit-email-error">
                   <span id="visit-email-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <div class="detail-visit__field">
                   <label for="visit-phone">Teléfono</label>
-                  <input id="visit-phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="visit-telefono-error">
+                  <input id="visit-phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" aria-describedby="visit-telefono-error">
                   <span id="visit-telefono-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <div class="detail-visit__field">
                   <label for="visit-message">Mensaje *</label>
-                  <textarea id="visit-message" name="mensaje" rows="4" minlength="10" required aria-describedby="visit-mensaje-error" placeholder="Contanos cuándo te gustaría visitarla"></textarea>
+                  <textarea id="visit-message" name="mensaje" rows="4" minlength="10" maxlength="2000" required aria-describedby="visit-mensaje-error" placeholder="Contanos cuándo te gustaría visitarla"></textarea>
                   <span id="visit-mensaje-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <button class="button button--primary detail-visit__submit" type="submit">Simular consulta de visita</button>

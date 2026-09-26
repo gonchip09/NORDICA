@@ -38,7 +38,10 @@ function getPropertyById(id) {
 
 function getGallery(property) {
   const pool = property.tipo === 'casa' ? houseGallery : apartmentGallery;
-  return [{ src: property.imagen, alt: property.alt }, ...pool.filter((image) => image.src !== property.imagen).slice(0, 4)];
+  return [
+    { src: property.imagen, alt: property.alt, kind: 'listing' },
+    ...pool.filter((image) => image.src !== property.imagen).slice(0, 4).map((image) => ({ ...image, kind: 'reference' })),
+  ];
 }
 
 function getRelatedProperties(property, count = 3) {
@@ -54,10 +57,18 @@ function getRelatedProperties(property, count = 3) {
 
 function validateVisit(values) {
   const errors = {};
-  if (!values.nombre?.trim()) errors.nombre = 'Ingresá tu nombre.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email?.trim() || '')) errors.email = 'Ingresá un email válido.';
-  if (values.telefono?.trim() && values.telefono.replace(/\D/g, '').length < 7) errors.telefono = 'Ingresá un teléfono válido o dejá el campo vacío.';
-  if ((values.mensaje?.trim() || '').length < 10) errors.mensaje = 'Escribí un mensaje de al menos 10 caracteres.';
+  const name = values.nombre?.trim() || '';
+  const email = values.email?.trim() || '';
+  const phone = values.telefono?.trim() || '';
+  const message = values.mensaje?.trim() || '';
+  if (!name) errors.nombre = 'Ingresá tu nombre.';
+  else if (name.length > 80) errors.nombre = 'El nombre debe tener 80 caracteres o menos.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Ingresá un email válido.';
+  else if (email.length > 254) errors.email = 'El email debe tener 254 caracteres o menos.';
+  if (phone && phone.replace(/\D/g, '').length < 7) errors.telefono = 'Ingresá un teléfono válido o dejá el campo vacío.';
+  else if (phone.length > 40) errors.telefono = 'El teléfono debe tener 40 caracteres o menos.';
+  if (message.length < 10) errors.mensaje = 'Escribí un mensaje de al menos 10 caracteres.';
+  else if (message.length > 2000) errors.mensaje = 'El mensaje debe tener 2000 caracteres o menos.';
   return errors;
 }
 
@@ -88,7 +99,7 @@ if (typeof document !== 'undefined') {
     document.querySelector('#detail-price').textContent = price;
     document.querySelector('#detail-operation').textContent = property.operacion === 'comprar' ? 'En venta' : 'En alquiler';
     const gallery = document.querySelector('#detail-gallery');
-    gallery.innerHTML = galleryImages.map((image, index) => `<figure class="detail-gallery__item"><button class="detail-gallery__trigger" type="button" data-gallery-index="${index}" aria-label="Abrir galería, imagen ${index + 1} de ${galleryImages.length}: ${image.alt}"><img src="${image.src}" alt="${image.alt}" width="1200" height="800" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></button></figure>`).join('');
+    gallery.innerHTML = galleryImages.map((image, index) => `<figure class="detail-gallery__item"><button class="detail-gallery__trigger" type="button" data-gallery-index="${index}" aria-label="Abrir galería, ${image.kind === 'listing' ? 'imagen del anuncio' : 'referencia visual de otro espacio'}, imagen ${index + 1} de ${galleryImages.length}: ${image.alt}"><img src="${image.src}" alt="${image.alt}" width="1200" height="800" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"><span class="detail-gallery__badge">${image.kind === 'listing' ? 'Imagen del anuncio' : 'Referencia visual'}</span></button></figure>`).join('');
     document.querySelector('#detail-facts').innerHTML = [
       ['Precio', price], ['Ubicación', property.ubicacion], ['Superficie', `${property.superficie} m²`],
       ['Dormitorios', String(property.dormitorios)], ['Baños', String(property.banos)],
@@ -111,7 +122,7 @@ if (typeof document !== 'undefined') {
     let openingButton = null;
 
     document.querySelector('#photo-viewer-title').textContent = extra.nombre;
-    thumbnails.innerHTML = galleryImages.map((image, index) => `<button type="button" data-gallery-index="${index}" aria-label="Ver imagen ${index + 1}: ${image.alt}" aria-pressed="false"><img src="${image.src}" alt="" width="96" height="72" loading="lazy"></button>`).join('');
+    thumbnails.innerHTML = galleryImages.map((image, index) => `<button type="button" data-gallery-index="${index}" aria-label="Ver ${image.kind === 'listing' ? 'imagen del anuncio' : 'referencia visual de otro espacio'} ${index + 1}: ${image.alt}" aria-pressed="false"><img src="${image.src}" alt="" width="96" height="72" loading="lazy"></button>`).join('');
 
     function showImage(index) {
       activeImage = (index + galleryImages.length) % galleryImages.length;
@@ -119,7 +130,7 @@ if (typeof document !== 'undefined') {
       viewerImage.src = image.src;
       viewerImage.alt = image.alt;
       viewerCount.textContent = `${activeImage + 1} / ${galleryImages.length}`;
-      viewerCaption.textContent = image.alt;
+      viewerCaption.textContent = `${image.kind === 'listing' ? 'Imagen del anuncio' : 'Referencia visual de otro espacio'} · ${image.alt}`;
       thumbnails.querySelectorAll('button').forEach((button, buttonIndex) => {
         button.setAttribute('aria-pressed', String(buttonIndex === activeImage));
       });
@@ -203,5 +214,7 @@ if (typeof document !== 'undefined') {
       form.hidden = false;
       form.elements.namedItem('nombre').focus();
     });
+
+    form.hidden = false;
   }
 }

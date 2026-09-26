@@ -23,6 +23,14 @@ test('contact form accepts valid details and optional empty phone', () => {
   }), {});
 });
 
+test('contact form rejects values beyond the visible field limits', () => {
+  const errors = formLogic.validateContact({
+    nombre: 'a'.repeat(81), apellido: 'b'.repeat(81), email: `${'a'.repeat(250)}@example.com`,
+    telefono: '1'.repeat(41), motivo: 'comprar', mensaje: 'a'.repeat(2001), aceptacion: true,
+  });
+  assert.deepEqual(Object.keys(errors).sort(), ['apellido', 'email', 'mensaje', 'nombre', 'telefono']);
+});
+
 test('contact reason only accepts known URL values', () => {
   assert.equal(typeof formLogic.resolveContactReason, 'function');
   assert.equal(formLogic.resolveContactReason('?motivo=tasacion'), 'tasacion');
