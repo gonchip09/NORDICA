@@ -101,7 +101,7 @@ if (typeof document !== 'undefined') {
     const gallery = document.querySelector('#detail-gallery');
     gallery.innerHTML = galleryImages.map((image, index) => `<figure class="detail-gallery__item"><button class="detail-gallery__trigger" type="button" data-gallery-index="${index}" aria-label="Abrir galería, ${image.kind === 'listing' ? 'imagen del anuncio' : 'referencia visual de otro espacio'}, imagen ${index + 1} de ${galleryImages.length}: ${image.alt}"><img src="${image.src}" alt="${image.alt}" width="1200" height="800" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"><span class="detail-gallery__badge">${image.kind === 'listing' ? 'Imagen del anuncio' : 'Referencia visual'}</span></button></figure>`).join('');
     document.querySelector('#detail-facts').innerHTML = [
-      ['Precio', price], ['Ubicación', property.ubicacion], ['Superficie', `${property.superficie} m²`],
+      ['Superficie', `${property.superficie} m²`],
       ['Dormitorios', String(property.dormitorios)], ['Baños', String(property.banos)],
       ['Garaje', extra.garaje ? `${extra.garaje} ${extra.garaje === 1 ? 'lugar' : 'lugares'}` : 'No incluido'],
       ['Tipo', property.tipoTexto], ['Operación', property.operacion === 'comprar' ? 'Venta' : 'Alquiler'],
