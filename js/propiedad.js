@@ -1,4 +1,7 @@
-const detailProperties = typeof module !== 'undefined' ? require('./propiedades.js').properties : properties;
+const detailCatalog = typeof module !== 'undefined' ? require('./propiedades.js') : { properties, formatPropertyPrice };
+const detailProperties = detailCatalog.properties;
+const formatDetailPrice = detailCatalog.formatPropertyPrice;
+const validateSharedFields = typeof module !== 'undefined' ? require('./validacion.js').validateBasicContactFields : window.validateBasicContactFields;
 
 const detailData = {
   'casa-carrasco': { nombre: 'Casa contemporánea en Carrasco', garaje: 2, descripcion: 'Casa de 280 m² con cuatro dormitorios y tres baños. La fachada combina ladrillo y madera, rodeada por un jardín arbolado que da privacidad a los espacios.', caracteristicas: ['Jardín', 'Terraza', 'Garaje', 'Calefacción'] },
@@ -56,17 +59,8 @@ function getRelatedProperties(property, count = 3) {
 }
 
 function validateVisit(values) {
-  const errors = {};
-  const name = values.nombre?.trim() || '';
-  const email = values.email?.trim() || '';
-  const phone = values.telefono?.trim() || '';
+  const errors = validateSharedFields(values);
   const message = values.mensaje?.trim() || '';
-  if (!name) errors.nombre = 'Ingresá tu nombre.';
-  else if (name.length > 80) errors.nombre = 'El nombre debe tener 80 caracteres o menos.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Usá un correo con formato nombre@dominio.com.';
-  else if (email.length > 254) errors.email = 'El email debe tener 254 caracteres o menos.';
-  if (phone && phone.replace(/\D/g, '').length < 7) errors.telefono = 'Ingresá al menos 7 números o dejá el campo vacío.';
-  else if (phone.length > 40) errors.telefono = 'El teléfono debe tener 40 caracteres o menos.';
   if (message.length < 10) errors.mensaje = 'Escribí un mensaje de al menos 10 caracteres.';
   else if (message.length > 2000) errors.mensaje = 'El mensaje debe tener 2000 caracteres o menos.';
   return errors;
@@ -91,7 +85,7 @@ if (typeof document !== 'undefined') {
     document.querySelector('#detail-intro-visual').hidden = false;
     document.querySelector('.detail-intro').classList.add('has-image');
     const galleryImages = getGallery(property);
-    const price = `${property.moneda} ${new Intl.NumberFormat('es-UY').format(property.precio)}${property.operacion === 'alquilar' ? ' / mes' : ''}`;
+    const price = formatDetailPrice(property);
     title.textContent = extra.nombre;
     document.title = `${extra.nombre} — Nórdica Propiedades`;
     document.querySelector('meta[name="description"]').content = `${extra.nombre}. ${property.superficie} m², ${property.dormitorios} dormitorios. Proyecto conceptual de Nórdica Propiedades.`;
@@ -110,7 +104,7 @@ if (typeof document !== 'undefined') {
     document.querySelector('#detail-features').innerHTML = extra.caracteristicas.map((feature) => `<li>${feature}</li>`).join('');
     document.querySelector('#detail-reference').textContent = `Referencia: ${property.id.toUpperCase()}`;
     document.querySelector('#visit-property').defaultValue = property.id;
-    document.querySelector('#detail-related').innerHTML = getRelatedProperties(property).map((item) => `<article class="detail-related__card"><a href="propiedad.html?id=${item.id}"><div class="detail-related__media"><img src="${item.imagen}" alt="${item.alt}" width="1200" height="800" loading="lazy" decoding="async"></div><p>${item.tipoTexto} · ${item.ubicacion}</p><h3>${detailData[item.id].nombre}</h3><span>${item.moneda} ${new Intl.NumberFormat('es-UY').format(item.precio)}${item.operacion === 'alquilar' ? ' / mes' : ''}</span></a></article>`).join('');
+    document.querySelector('#detail-related').innerHTML = getRelatedProperties(property).map((item) => `<article class="detail-related__card"><a href="propiedad.html?id=${item.id}"><div class="detail-related__media"><img src="${item.imagen}" alt="${item.alt}" width="1200" height="800" loading="lazy" decoding="async"></div><p>${item.tipoTexto} · ${item.ubicacion}</p><h3>${detailData[item.id].nombre}</h3><span>${formatDetailPrice(item)}</span></a></article>`).join('');
     content.hidden = false;
 
     const viewer = document.querySelector('#photo-viewer');
@@ -142,6 +136,7 @@ if (typeof document !== 'undefined') {
       if (!button) return;
       openingButton = button;
       showImage(Number(button.dataset.galleryIndex));
+      viewer.classList.toggle('is-keyboard-open', event.detail === 0);
       viewer.showModal();
       document.body.classList.add('photo-viewer-open');
       document.querySelector('#photo-viewer-close').focus();

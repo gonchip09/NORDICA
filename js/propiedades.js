@@ -13,6 +13,12 @@ const properties = [
   { id: 'casa-maldonado', titulo: 'Arquitectura de líneas simples', tipo: 'casa', tipoTexto: 'Casa', operacion: 'comprar', ubicacion: 'Maldonado, Maldonado', dormitorios: 4, banos: 3, superficie: 245, precio: 610000, moneda: 'USD', imagen: 'assets/images/casa-maldonado.jpg', alt: 'Casa de líneas modernas con acceso amplio y jardín' },
 ];
 
+const priceFormatter = new Intl.NumberFormat('es-UY');
+
+function formatPropertyPrice(property) {
+  return `${property.moneda} ${priceFormatter.format(property.precio)}${property.operacion === 'alquilar' ? ' / mes' : ''}`;
+}
+
 function normalizeText(value) {
   return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 }
@@ -35,7 +41,7 @@ function resultLabel(count) {
   return `${count} ${count === 1 ? 'propiedad encontrada' : 'propiedades encontradas'}`;
 }
 
-if (typeof module !== 'undefined') module.exports = { properties, filterProperties, resultLabel };
+if (typeof module !== 'undefined') module.exports = { properties, filterProperties, resultLabel, formatPropertyPrice };
 
 if (typeof document !== 'undefined') {
   const form = document.querySelector('#catalog-filters');
@@ -72,7 +78,7 @@ if (typeof document !== 'undefined') {
 
     function cardMarkup(property) {
       const badge = property.operacion === 'comprar' ? 'En venta' : 'En alquiler';
-      const priceText = `${property.moneda} ${new Intl.NumberFormat('es-UY').format(property.precio)}${property.operacion === 'alquilar' ? ' / mes' : ''}`;
+      const priceText = formatPropertyPrice(property);
       return `<article class="catalog-card">
         <a class="catalog-card__link" href="propiedad.html?id=${property.id}">
           <div class="catalog-card__media">
