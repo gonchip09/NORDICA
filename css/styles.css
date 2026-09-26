@@ -274,6 +274,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .contact-section { padding-block: 6rem 7rem; background: var(--color-paper); }
 #contact-form { scroll-margin-top: 2rem; }
+#catalog-listings-title { scroll-margin-top: 2rem; }
 .contact-section__layout { display: grid; gap: 3.5rem; }
 .contact-section__intro h2 { max-width: 11ch; margin: 0; font-size: clamp(2.8rem, 8vw, 5.25rem); font-weight: 500; letter-spacing: -0.067em; line-height: 1.04; }
 .contact-section__intro > p { max-width: 29rem; margin: 1.5rem 0 0; color: var(--color-muted); font-size: 1rem; line-height: 1.65; }

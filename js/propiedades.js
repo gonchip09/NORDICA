@@ -90,7 +90,7 @@ if (typeof document !== 'undefined') {
         if (value) params.set(name, value);
       });
       const query = params.toString();
-      window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
+      window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
     }
 
     function render(animate = false) {
