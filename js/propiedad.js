@@ -1,4 +1,7 @@
-const detailProperties = typeof module !== 'undefined' ? require('./propiedades.js').properties : properties;
+const detailCatalog = typeof module !== 'undefined' ? require('./propiedades.js') : { properties, formatPropertyPrice };
+const detailProperties = detailCatalog.properties;
+const formatDetailPrice = detailCatalog.formatPropertyPrice;
+const validateSharedFields = typeof module !== 'undefined' ? require('./validacion.js').validateBasicContactFields : window.validateBasicContactFields;
 
 const detailData = {
   'casa-carrasco': { nombre: 'Casa contemporánea en Carrasco', garaje: 2, descripcion: 'Casa de 280 m² con cuatro dormitorios y tres baños. La fachada combina ladrillo y madera, rodeada por un jardín arbolado que da privacidad a los espacios.', caracteristicas: ['Jardín', 'Terraza', 'Garaje', 'Calefacción'] },
@@ -38,7 +41,10 @@ function getPropertyById(id) {
 
 function getGallery(property) {
   const pool = property.tipo === 'casa' ? houseGallery : apartmentGallery;
-  return [{ src: property.imagen, alt: property.alt }, ...pool.filter((image) => image.src !== property.imagen).slice(0, 4)];
+  return [
+    { src: property.imagen, alt: property.alt, kind: 'listing' },
+    ...pool.filter((image) => image.src !== property.imagen).slice(0, 4).map((image) => ({ ...image, kind: 'reference' })),
+  ];
 }
 
 function getRelatedProperties(property, count = 3) {
@@ -53,11 +59,10 @@ function getRelatedProperties(property, count = 3) {
 }
 
 function validateVisit(values) {
-  const errors = {};
-  if (!values.nombre?.trim()) errors.nombre = 'Ingresá tu nombre.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email?.trim() || '')) errors.email = 'Ingresá un email válido.';
-  if (values.telefono?.trim() && values.telefono.replace(/\D/g, '').length < 7) errors.telefono = 'Ingresá un teléfono válido o dejá el campo vacío.';
-  if ((values.mensaje?.trim() || '').length < 10) errors.mensaje = 'Escribí un mensaje de al menos 10 caracteres.';
+  const errors = validateSharedFields(values);
+  const message = values.mensaje?.trim() || '';
+  if (message.length < 10) errors.mensaje = 'Escribí un mensaje de al menos 10 caracteres.';
+  else if (message.length > 2000) errors.mensaje = 'El mensaje debe tener 2000 caracteres o menos.';
   return errors;
 }
 
@@ -80,7 +85,7 @@ if (typeof document !== 'undefined') {
     document.querySelector('#detail-intro-visual').hidden = false;
     document.querySelector('.detail-intro').classList.add('has-image');
     const galleryImages = getGallery(property);
-    const price = `${property.moneda} ${new Intl.NumberFormat('es-UY').format(property.precio)}${property.operacion === 'alquilar' ? ' / mes' : ''}`;
+    const price = formatDetailPrice(property);
     title.textContent = extra.nombre;
     document.title = `${extra.nombre} — Nórdica Propiedades`;
     document.querySelector('meta[name="description"]').content = `${extra.nombre}. ${property.superficie} m², ${property.dormitorios} dormitorios. Proyecto conceptual de Nórdica Propiedades.`;
@@ -88,9 +93,9 @@ if (typeof document !== 'undefined') {
     document.querySelector('#detail-price').textContent = price;
     document.querySelector('#detail-operation').textContent = property.operacion === 'comprar' ? 'En venta' : 'En alquiler';
     const gallery = document.querySelector('#detail-gallery');
-    gallery.innerHTML = galleryImages.map((image, index) => `<figure class="detail-gallery__item"><button class="detail-gallery__trigger" type="button" data-gallery-index="${index}" aria-label="Abrir galería, imagen ${index + 1} de ${galleryImages.length}: ${image.alt}"><img src="${image.src}" alt="${image.alt}" width="1200" height="800" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></button></figure>`).join('');
+    gallery.innerHTML = galleryImages.map((image, index) => `<figure class="detail-gallery__item"><button class="detail-gallery__trigger" type="button" data-gallery-index="${index}" aria-label="Abrir galería, ${image.kind === 'listing' ? 'imagen del anuncio' : 'referencia visual de otro espacio'}, imagen ${index + 1} de ${galleryImages.length}: ${image.alt}"><img src="${image.src}" alt="${image.alt}" width="1200" height="800" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"><span class="detail-gallery__badge">${image.kind === 'listing' ? 'Imagen del anuncio' : 'Referencia visual'}</span></button></figure>`).join('');
     document.querySelector('#detail-facts').innerHTML = [
-      ['Precio', price], ['Ubicación', property.ubicacion], ['Superficie', `${property.superficie} m²`],
+      ['Superficie', `${property.superficie} m²`],
       ['Dormitorios', String(property.dormitorios)], ['Baños', String(property.banos)],
       ['Garaje', extra.garaje ? `${extra.garaje} ${extra.garaje === 1 ? 'lugar' : 'lugares'}` : 'No incluido'],
       ['Tipo', property.tipoTexto], ['Operación', property.operacion === 'comprar' ? 'Venta' : 'Alquiler'],
@@ -99,7 +104,7 @@ if (typeof document !== 'undefined') {
     document.querySelector('#detail-features').innerHTML = extra.caracteristicas.map((feature) => `<li>${feature}</li>`).join('');
     document.querySelector('#detail-reference').textContent = `Referencia: ${property.id.toUpperCase()}`;
     document.querySelector('#visit-property').defaultValue = property.id;
-    document.querySelector('#detail-related').innerHTML = getRelatedProperties(property).map((item) => `<article class="detail-related__card"><a href="propiedad.html?id=${item.id}"><div class="detail-related__media"><img src="${item.imagen}" alt="${item.alt}" width="1200" height="800" loading="lazy" decoding="async"></div><p>${item.tipoTexto} · ${item.ubicacion}</p><h3>${detailData[item.id].nombre}</h3><span>${item.moneda} ${new Intl.NumberFormat('es-UY').format(item.precio)}${item.operacion === 'alquilar' ? ' / mes' : ''}</span></a></article>`).join('');
+    document.querySelector('#detail-related').innerHTML = getRelatedProperties(property).map((item) => `<article class="detail-related__card"><a href="propiedad.html?id=${item.id}"><div class="detail-related__media"><img src="${item.imagen}" alt="${item.alt}" width="1200" height="800" loading="lazy" decoding="async"></div><p>${item.tipoTexto} · ${item.ubicacion}</p><h3>${detailData[item.id].nombre}</h3><span>${formatDetailPrice(item)}</span></a></article>`).join('');
     content.hidden = false;
 
     const viewer = document.querySelector('#photo-viewer');
@@ -111,7 +116,7 @@ if (typeof document !== 'undefined') {
     let openingButton = null;
 
     document.querySelector('#photo-viewer-title').textContent = extra.nombre;
-    thumbnails.innerHTML = galleryImages.map((image, index) => `<button type="button" data-gallery-index="${index}" aria-label="Ver imagen ${index + 1}: ${image.alt}" aria-pressed="false"><img src="${image.src}" alt="" width="96" height="72" loading="lazy"></button>`).join('');
+    thumbnails.innerHTML = galleryImages.map((image, index) => `<button type="button" data-gallery-index="${index}" aria-label="Ver ${image.kind === 'listing' ? 'imagen del anuncio' : 'referencia visual de otro espacio'} ${index + 1}: ${image.alt}" aria-pressed="false"><img src="${image.src}" alt="" width="96" height="72" loading="lazy"></button>`).join('');
 
     function showImage(index) {
       activeImage = (index + galleryImages.length) % galleryImages.length;
@@ -119,7 +124,7 @@ if (typeof document !== 'undefined') {
       viewerImage.src = image.src;
       viewerImage.alt = image.alt;
       viewerCount.textContent = `${activeImage + 1} / ${galleryImages.length}`;
-      viewerCaption.textContent = image.alt;
+      viewerCaption.textContent = `${image.kind === 'listing' ? 'Imagen del anuncio' : 'Referencia visual de otro espacio'} · ${image.alt}`;
       thumbnails.querySelectorAll('button').forEach((button, buttonIndex) => {
         button.setAttribute('aria-pressed', String(buttonIndex === activeImage));
       });
@@ -131,6 +136,7 @@ if (typeof document !== 'undefined') {
       if (!button) return;
       openingButton = button;
       showImage(Number(button.dataset.galleryIndex));
+      viewer.classList.toggle('is-keyboard-open', event.detail === 0);
       viewer.showModal();
       document.body.classList.add('photo-viewer-open');
       document.querySelector('#photo-viewer-close').focus();
@@ -203,5 +209,7 @@ if (typeof document !== 'undefined') {
       form.hidden = false;
       form.elements.namedItem('nombre').focus();
     });
+
+    form.hidden = false;
   }
 }

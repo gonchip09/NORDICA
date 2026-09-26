@@ -9,11 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=28">
-    <script src="js/main.js?v=9" defer></script>
-    <script src="js/newsletter.js?v=3" defer></script>
-    <script src="js/propiedades.js?v=6" defer></script>
-    <script src="js/propiedad.js?v=4" defer></script>
+    <link rel="stylesheet" href="css/styles.css?v=35">
+    <script src="js/main.js?v=10" defer></script>
+    <script src="js/newsletter.js?v=5" defer></script>
+    <script src="js/propiedades.js?v=8" defer></script>
+    <script src="js/validacion.js?v=1" defer></script>
+    <script src="js/propiedad.js?v=11" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -55,14 +56,16 @@
       </section>
 
       <section class="detail-missing container" id="detail-missing" aria-label="Propiedad no encontrada" hidden>
-        <p>La referencia puede haber cambiado o el enlace ya no está disponible.</p>
-        <a class="button button--dark" href="propiedades.html">Ver todas las propiedades</a>
+        <p>El enlace no coincide con ninguna propiedad del catálogo.</p>
+        <a class="button button--dark" href="propiedades.html">Volver al catálogo</a>
       </section>
+
+      <noscript><p class="demo-unavailable container">Para ver los detalles y simular una consulta, activá JavaScript. El formulario de demostración no envía ni guarda datos.</p></noscript>
 
       <div id="detail-content" hidden>
         <section class="detail-gallery-section" aria-label="Galería de imágenes ilustrativas">
           <div class="detail-gallery" id="detail-gallery"></div>
-          <p class="detail-gallery__note container">Imágenes ilustrativas de este proyecto conceptual. Las fotografías complementarias pueden corresponder a distintos espacios.</p>
+          <p class="detail-gallery__note container">Proyecto conceptual: la imagen principal ilustra el anuncio. Las demás son referencias de otros espacios, no fotos de esta propiedad.</p>
         </section>
 
         <section class="detail-body" aria-labelledby="detail-information-title">
@@ -76,7 +79,7 @@
               <dl class="detail-facts" id="detail-facts"></dl>
 
               <div class="detail-body__section">
-                <h3>Una mirada al espacio.</h3>
+                <h3>Descripción</h3>
                 <p id="detail-description"></p>
               </div>
 
@@ -87,29 +90,29 @@
             </div>
 
             <aside class="detail-visit" aria-labelledby="detail-visit-title">
-              <h2 id="detail-visit-title">¿Querés conocer esta propiedad?</h2>
-              <p>Completá los datos para simular una consulta de visita.</p>
+              <h2 id="detail-visit-title">Probá una consulta de visita.</h2>
+              <p>Este formulario es una demostración: no envía ni guarda datos.</p>
 
-              <form id="visit-form" novalidate>
+              <form id="visit-form" novalidate hidden>
                 <input id="visit-property" name="propiedad" type="hidden">
                 <div class="detail-visit__field">
                   <label for="visit-name">Nombre *</label>
-                  <input id="visit-name" name="nombre" type="text" autocomplete="given-name" required aria-describedby="visit-nombre-error">
+                  <input id="visit-name" name="nombre" type="text" autocomplete="given-name" maxlength="80" required aria-describedby="visit-nombre-error">
                   <span id="visit-nombre-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <div class="detail-visit__field">
                   <label for="visit-email">Email *</label>
-                  <input id="visit-email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="visit-email-error">
+                  <input id="visit-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="visit-email-error">
                   <span id="visit-email-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <div class="detail-visit__field">
                   <label for="visit-phone">Teléfono</label>
-                  <input id="visit-phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="visit-telefono-error">
+                  <input id="visit-phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" aria-describedby="visit-telefono-error">
                   <span id="visit-telefono-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <div class="detail-visit__field">
                   <label for="visit-message">Mensaje *</label>
-                  <textarea id="visit-message" name="mensaje" rows="4" minlength="10" required aria-describedby="visit-mensaje-error" placeholder="Contanos cuándo te gustaría visitarla"></textarea>
+                  <textarea id="visit-message" name="mensaje" rows="4" minlength="10" maxlength="2000" required aria-describedby="visit-mensaje-error" placeholder="Contanos cuándo te gustaría visitarla"></textarea>
                   <span id="visit-mensaje-error" class="detail-visit__error" aria-live="polite"></span>
                 </div>
                 <button class="button button--primary detail-visit__submit" type="submit">Simular consulta de visita</button>
@@ -118,9 +121,9 @@
 
               <div class="detail-visit__success" id="visit-success" role="status" tabindex="-1" hidden>
                 <span aria-hidden="true"><span class="icon icon--check"></span></span>
-                <h3>Consulta de visita simulada.</h3>
-                <p>Tu consulta no se envió ni guardó. Esta es una demostración del formulario.</p>
-                <button class="button button--primary" type="button">Escribir otra consulta</button>
+                <h3>Así se vería la confirmación.</h3>
+                <p>No se enviaron ni guardaron datos.</p>
+                <button class="button button--primary" type="button">Probar otra consulta</button>
               </div>
             </aside>
           </div>
@@ -129,7 +132,7 @@
         <section class="detail-related" aria-labelledby="detail-related-title">
           <div class="container">
             <div class="detail-related__heading">
-              <h2 id="detail-related-title">Otras propiedades para mirar.</h2>
+              <h2 id="detail-related-title">Explorá otras propiedades.</h2>
               <a href="propiedades.html">Ver todas las propiedades <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
             </div>
             <div class="detail-related__grid" id="detail-related"></div>
@@ -186,17 +189,9 @@
             <p>Montevideo, Uruguay</p>
             <p>hola@nordica.example</p>
             <p>+598 2 000 0000</p>
-            <p class="site-footer__note">Datos de contacto demostrativos.</p>
+            <p class="site-footer__note">Datos de ejemplo; no reciben consultas.</p>
           </div>
 
-          <div class="site-footer__group">
-            <h2>Redes</h2>
-            <ul>
-              <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-            </ul>
-            <p class="site-footer__note">Enlaces de demostración a las plataformas.</p>
-          </div>
         </div>
 
         <div class="site-footer__bottom">

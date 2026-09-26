@@ -50,12 +50,12 @@ if (typeof document !== 'undefined' && document.body && typeof HTMLDialogElement
             <p id="newsletter-description">Probá cómo sería recibir novedades de propiedades seleccionadas.</p>
             <form class="newsletter-dialog__form">
               <label for="newsletter-email">Tu correo electrónico</label>
-              <input id="newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required>
+              <input id="newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" maxlength="254" required>
               <button class="button button--dark" type="submit">Simular suscripción</button>
             </form>
             <div class="newsletter-dialog__success" role="status" hidden>
               <h3>Suscripción simulada.</h3>
-              <p>Tu correo no se envió ni guardó. Esta es una demostración del formulario.</p>
+              <p>No se envió ni guardó tu correo.</p>
               <a href="propiedades.html">Explorar propiedades <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
             </div>
             <p class="newsletter-dialog__note">Demostración: no enviamos ni guardamos tu correo.</p>

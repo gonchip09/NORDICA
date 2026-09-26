@@ -9,10 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=28">
-    <script src="js/main.js?v=9" defer></script>
-    <script src="js/newsletter.js?v=3" defer></script>
-    <script src="js/formulario.js?v=3" defer></script>
+    <link rel="stylesheet" href="css/styles.css?v=35">
+    <script src="js/main.js?v=10" defer></script>
+    <script src="js/newsletter.js?v=5" defer></script>
+    <script src="js/validacion.js?v=1" defer></script>
+    <script src="js/formulario.js?v=7" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -42,8 +43,8 @@
       <section class="contact-hero" aria-labelledby="contact-title">
         <div class="contact-hero__content container">
           <h1 id="contact-title">Hablemos de tu próxima propiedad.</h1>
-          <p>Contanos qué tenés en mente. Toda buena decisión empieza con una conversación.</p>
-          <a class="button button--primary contact-hero__action" href="#contact-form">Ir al formulario</a>
+          <p>Probá el formulario de esta demostración sin enviar ni guardar tus datos.</p>
+          <a class="button button--primary contact-hero__action" href="#contact-form">Probar el formulario</a>
         </div>
         <figure class="contact-hero__visual">
           <img src="assets/images/casa-carrasco.jpg" width="1200" height="801" alt="Casa contemporánea de ladrillo y madera rodeada de árboles" fetchpriority="high" decoding="async">
@@ -54,7 +55,6 @@
         <div class="owner-paths__intro container">
           <h2 id="owner-paths-title">Tu propiedad, tu próximo paso.</h2>
           <p>Si estás pensando en vender o poner en alquiler, empecemos por conocer tu espacio y lo que necesitás.</p>
-          <a class="owner-paths__direct" href="#contact-form">¿Querés comprar o tasar? Ir al formulario <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
         </div>
 
         <div class="owner-paths__grid">
@@ -81,38 +81,39 @@
       <section class="contact-section" aria-labelledby="contact-form-title">
         <div class="contact-section__layout container">
           <div class="contact-section__intro">
-            <h2 id="contact-form-title">Contanos tu idea.</h2>
-            <p>Si querés comprar, vender, alquilar o tasar, compartí los detalles. Este formulario es una demostración: completarlo no envía tus datos.</p>
+            <h2 id="contact-form-title">Simulá una consulta.</h2>
+            <p>Elegí el motivo y completá los campos para ver una confirmación de ejemplo.</p>
             <div class="contact-section__direct">
-              <h3>Otras vías de contacto</h3>
+              <h3>Datos de contacto de ejemplo</h3>
               <p>hola@nordica.example</p>
               <p>+598 2 000 0000</p>
-              <span>Datos demostrativos. No corresponden a una inmobiliaria real.</span>
+              <span>No reciben consultas.</span>
             </div>
           </div>
 
           <div class="contact-section__form-area">
-            <form class="contact-form" id="contact-form" novalidate>
+            <noscript><p class="demo-unavailable">La simulación del formulario requiere JavaScript. No ingreses datos aquí si está desactivado.</p></noscript>
+            <form class="contact-form" id="contact-form" novalidate hidden>
               <p class="contact-form__hint">Los campos marcados con * son obligatorios.</p>
               <div class="contact-form__fields">
                 <div class="contact-field">
                   <label for="contact-name">Nombre *</label>
-                  <input id="contact-name" name="nombre" type="text" autocomplete="given-name" required aria-describedby="nombre-error">
+                  <input id="contact-name" name="nombre" type="text" autocomplete="given-name" maxlength="80" required aria-describedby="nombre-error">
                   <span class="contact-field__error" id="nombre-error" aria-live="polite"></span>
                 </div>
                 <div class="contact-field">
                   <label for="contact-lastname">Apellido *</label>
-                  <input id="contact-lastname" name="apellido" type="text" autocomplete="family-name" required aria-describedby="apellido-error">
+                  <input id="contact-lastname" name="apellido" type="text" autocomplete="family-name" maxlength="80" required aria-describedby="apellido-error">
                   <span class="contact-field__error" id="apellido-error" aria-live="polite"></span>
                 </div>
                 <div class="contact-field">
                   <label for="contact-email">Email *</label>
-                  <input id="contact-email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="email-error">
+                  <input id="contact-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="email-error">
                   <span class="contact-field__error" id="email-error" aria-live="polite"></span>
                 </div>
                 <div class="contact-field">
                   <label for="contact-phone">Teléfono</label>
-                  <input id="contact-phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="telefono-error">
+                  <input id="contact-phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" aria-describedby="telefono-error">
                   <span class="contact-field__error" id="telefono-error" aria-live="polite"></span>
                 </div>
                 <div class="contact-field contact-field--full">
@@ -131,7 +132,7 @@
                 <div class="contact-field contact-field--full">
                   <label for="contact-message">Mensaje *</label>
                   <p class="contact-field__help" id="mensaje-ayuda">Contanos qué necesitás y los datos que nos ayuden a entender tu consulta.</p>
-                  <textarea id="contact-message" name="mensaje" rows="6" minlength="10" required aria-describedby="mensaje-ayuda mensaje-error"></textarea>
+                  <textarea id="contact-message" name="mensaje" rows="6" minlength="10" maxlength="2000" required aria-describedby="mensaje-ayuda mensaje-error"></textarea>
                   <span class="contact-field__error" id="mensaje-error" aria-live="polite"></span>
                 </div>
               </div>
@@ -139,7 +140,7 @@
               <div class="contact-form__acceptance">
                 <div class="contact-form__acceptance-control">
                   <input id="contact-acceptance" name="aceptacion" type="checkbox" required aria-describedby="aceptacion-error">
-                  <label for="contact-acceptance">Entiendo que este formulario es una demostración y no envía datos. *</label>
+                  <label for="contact-acceptance">Entiendo que mis datos no se enviarán ni guardarán. *</label>
                 </div>
                 <span class="contact-field__error" id="aceptacion-error" aria-live="polite"></span>
               </div>
@@ -149,9 +150,9 @@
 
             <div class="contact-success" id="contact-success" role="status" tabindex="-1" hidden>
               <span class="contact-success__mark" aria-hidden="true"><span class="icon icon--check"></span></span>
-              <h3>Consulta simulada.</h3>
-              <p>Tu consulta no se envió ni guardó. Esta es una demostración del formulario.</p>
-              <button class="button button--primary" type="button">Escribir otra consulta</button>
+              <h3>Así se vería la confirmación.</h3>
+              <p>La simulación terminó sin enviar ni guardar datos.</p>
+              <button class="button button--primary" type="button">Probar otra consulta</button>
             </div>
           </div>
         </div>
@@ -181,17 +182,9 @@
             <p>Montevideo, Uruguay</p>
             <p>hola@nordica.example</p>
             <p>+598 2 000 0000</p>
-            <p class="site-footer__note">Datos de contacto demostrativos.</p>
+            <p class="site-footer__note">Datos de ejemplo; no reciben consultas.</p>
           </div>
 
-          <div class="site-footer__group">
-            <h2>Redes</h2>
-            <ul>
-              <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-            </ul>
-            <p class="site-footer__note">Enlaces de demostración a las plataformas.</p>
-          </div>
         </div>
 
         <div class="site-footer__bottom">

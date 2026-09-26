@@ -19,6 +19,8 @@ test('each property has five distinct local gallery images', () => {
     const gallery = detail.getGallery(property);
     assert.equal(gallery.length, 5, property.id);
     assert.equal(gallery[0].src, property.imagen, property.id);
+    assert.equal(gallery[0].kind, 'listing', property.id);
+    assert.equal(gallery.slice(1).every((image) => image.kind === 'reference'), true, property.id);
     assert.equal(new Set(gallery.map((image) => image.src)).size, 5, property.id);
     assert.equal(gallery.every((image) => fs.existsSync(image.src)), true, property.id);
   }
@@ -37,4 +39,9 @@ test('visit request validates required fields and optional phone', () => {
   assert.equal(typeof detail.validateVisit, 'function');
   assert.deepEqual(Object.keys(detail.validateVisit({ nombre: '', email: 'x', telefono: '123', mensaje: 'hola' })).sort(), ['email', 'mensaje', 'nombre', 'telefono']);
   assert.deepEqual(detail.validateVisit({ nombre: 'Ana', email: 'ana@example.com', telefono: '', mensaje: 'Quiero coordinar una visita.' }), {});
+});
+
+test('visit request rejects values beyond the visible field limits', () => {
+  const errors = detail.validateVisit({ nombre: 'a'.repeat(81), email: `${'a'.repeat(250)}@example.com`, telefono: '1'.repeat(41), mensaje: 'a'.repeat(2001) });
+  assert.deepEqual(Object.keys(errors).sort(), ['email', 'mensaje', 'nombre', 'telefono']);
 });

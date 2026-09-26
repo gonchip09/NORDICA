@@ -36,6 +36,11 @@ test('catalog count uses correct singular and plural', () => {
   assert.equal(catalog.resultLabel(12), '12 propiedades encontradas');
 });
 
+test('property prices have one format across sale and rental views', () => {
+  assert.equal(catalog.formatPropertyPrice({ moneda: 'USD', precio: 690000, operacion: 'comprar' }), 'USD 690.000');
+  assert.equal(catalog.formatPropertyPrice({ moneda: 'UYU', precio: 49000, operacion: 'alquilar' }), 'UYU 49.000 / mes');
+});
+
 test('catalog includes twelve unique conceptual listings with local photos', () => {
   assert.equal(Array.isArray(catalog.properties), true);
   assert.equal(catalog.properties.length, 12);

@@ -1,3 +1,5 @@
+const validateSharedFields = typeof module !== 'undefined' ? require('./validacion.js').validateBasicContactFields : window.validateBasicContactFields;
+
 const contactReasons = new Set(['comprar', 'vender', 'alquilar', 'alquilar_propiedad', 'tasacion', 'otro']);
 
 function resolveContactReason(search) {
@@ -17,14 +19,15 @@ function getMessageGuidance(reason) {
 }
 
 function validateContact(values) {
-  const errors = {};
-  if (!values.nombre?.trim()) errors.nombre = 'Ingresá tu nombre.';
-  if (!values.apellido?.trim()) errors.apellido = 'Ingresá tu apellido.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email?.trim() || '')) errors.email = 'Ingresá un email válido.';
-  if (values.telefono?.trim() && values.telefono.replace(/\D/g, '').length < 7) errors.telefono = 'Ingresá un teléfono válido o dejá el campo vacío.';
+  const errors = validateSharedFields(values);
+  const lastName = values.apellido?.trim() || '';
+  const message = values.mensaje?.trim() || '';
+  if (!lastName) errors.apellido = 'Ingresá tu apellido.';
+  else if (lastName.length > 80) errors.apellido = 'El apellido debe tener 80 caracteres o menos.';
   if (!contactReasons.has(values.motivo)) errors.motivo = 'Seleccioná el motivo de tu consulta.';
-  if ((values.mensaje?.trim() || '').length < 10) errors.mensaje = 'Contanos un poco más (al menos 10 caracteres).';
-  if (!values.aceptacion) errors.aceptacion = 'Confirmá que entendés cómo funciona esta demostración.';
+  if (message.length < 10) errors.mensaje = 'Contanos un poco más (al menos 10 caracteres).';
+  else if (message.length > 2000) errors.mensaje = 'El mensaje debe tener 2000 caracteres o menos.';
+  if (!values.aceptacion) errors.aceptacion = 'Marcá la casilla para continuar.';
   return errors;
 }
 
@@ -101,5 +104,7 @@ if (typeof document !== 'undefined') {
       form.hidden = false;
       form.elements.namedItem('nombre').focus();
     });
+
+    form.hidden = false;
   }
 }

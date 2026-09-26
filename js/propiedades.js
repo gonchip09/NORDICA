@@ -13,6 +13,12 @@ const properties = [
   { id: 'casa-maldonado', titulo: 'Arquitectura de líneas simples', tipo: 'casa', tipoTexto: 'Casa', operacion: 'comprar', ubicacion: 'Maldonado, Maldonado', dormitorios: 4, banos: 3, superficie: 245, precio: 610000, moneda: 'USD', imagen: 'assets/images/casa-maldonado.jpg', alt: 'Casa de líneas modernas con acceso amplio y jardín' },
 ];
 
+const priceFormatter = new Intl.NumberFormat('es-UY');
+
+function formatPropertyPrice(property) {
+  return `${property.moneda} ${priceFormatter.format(property.precio)}${property.operacion === 'alquilar' ? ' / mes' : ''}`;
+}
+
 function normalizeText(value) {
   return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 }
@@ -35,7 +41,7 @@ function resultLabel(count) {
   return `${count} ${count === 1 ? 'propiedad encontrada' : 'propiedades encontradas'}`;
 }
 
-if (typeof module !== 'undefined') module.exports = { properties, filterProperties, resultLabel };
+if (typeof module !== 'undefined') module.exports = { properties, filterProperties, resultLabel, formatPropertyPrice };
 
 if (typeof document !== 'undefined') {
   const form = document.querySelector('#catalog-filters');
@@ -46,6 +52,7 @@ if (typeof document !== 'undefined') {
     const empty = document.querySelector('#catalog-empty');
     const operation = form.elements.namedItem('operacion');
     const price = form.elements.namedItem('precio');
+    const priceHelp = document.querySelector('#catalog-price-help');
     const priceOptions = {
       comprar: [[250000, 'Hasta USD 250.000'], [400000, 'Hasta USD 400.000'], [600000, 'Hasta USD 600.000'], [900000, 'Hasta USD 900.000']],
       alquilar: [[35000, 'Hasta UYU 35.000'], [45000, 'Hasta UYU 45.000'], [60000, 'Hasta UYU 60.000'], [80000, 'Hasta UYU 80.000']],
@@ -54,9 +61,14 @@ if (typeof document !== 'undefined') {
     function setPriceOptions(selectedOperation, selectedPrice = '') {
       const options = priceOptions[selectedOperation];
       price.disabled = !options;
+      priceHelp.textContent = selectedOperation === 'comprar'
+        ? 'Precios de venta en USD.'
+        : selectedOperation === 'alquilar'
+          ? 'Alquileres en UYU por mes.'
+          : 'Elegí Comprar o Alquilar para filtrar por precio.';
       price.innerHTML = options
         ? `<option value="">Sin límite</option>${options.map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}`
-        : '<option value="">Elegí una operación</option>';
+        : '<option value="">Elegí primero</option>';
       if (options?.some(([value]) => String(value) === selectedPrice)) price.value = selectedPrice;
     }
 
@@ -66,7 +78,7 @@ if (typeof document !== 'undefined') {
 
     function cardMarkup(property) {
       const badge = property.operacion === 'comprar' ? 'En venta' : 'En alquiler';
-      const priceText = `${property.moneda} ${new Intl.NumberFormat('es-UY').format(property.precio)}${property.operacion === 'alquilar' ? ' / mes' : ''}`;
+      const priceText = formatPropertyPrice(property);
       return `<article class="catalog-card">
         <a class="catalog-card__link" href="propiedad.html?id=${property.id}">
           <div class="catalog-card__media">
@@ -90,7 +102,7 @@ if (typeof document !== 'undefined') {
         if (value) params.set(name, value);
       });
       const query = params.toString();
-      window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
+      window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
     }
 
     function render(animate = false) {
