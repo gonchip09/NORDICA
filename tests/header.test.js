@@ -7,7 +7,6 @@ function element() {
   const listeners = {};
   const attributes = {};
   const classes = new Set();
-  const styles = {};
   return {
     listeners,
     attributes,
@@ -15,9 +14,7 @@ function element() {
       add(name) { classes.add(name); },
       remove(name) { classes.delete(name); },
       contains(name) { return classes.has(name); },
-      toggle(name, force) { if (force) classes.add(name); else classes.delete(name); },
     },
-    style: { values: styles, setProperty(name, value) { styles[name] = value; } },
     setAttribute(name, value) { attributes[name] = value; },
     getAttribute(name) { return attributes[name] ?? null; },
     addEventListener(name, listener) { listeners[name] = listener; },
@@ -29,7 +26,6 @@ function element() {
 function loadPage(reduceMotion = false, featuredCards = [], serviceRows = [], storySections = [], processSteps = [], sellCtas = [], footers = []) {
   const toggle = element();
   const nav = element();
-  const header = element();
   const word = element();
   word.textContent = 'etapa';
   const links = [element(), element()];
@@ -37,11 +33,10 @@ function loadPage(reduceMotion = false, featuredCards = [], serviceRows = [], st
   const windowListeners = {};
   const timers = [];
   const observers = [];
-  const frames = [];
   const media = { matches: reduceMotion, addEventListener(name, listener) { this.listener = listener; } };
   const document = {
     querySelector(selector) {
-      return { '.menu-toggle': toggle, '.site-nav': nav, '.site-header': header, '.hero__word': word }[selector];
+      return { '.menu-toggle': toggle, '.site-nav': nav, '.hero__word': word }[selector];
     },
     querySelectorAll(selector) {
       if (selector === '.site-nav a') return links;
@@ -57,10 +52,7 @@ function loadPage(reduceMotion = false, featuredCards = [], serviceRows = [], st
   };
   const window = {
     innerWidth: 375,
-    innerHeight: 844,
-    scrollY: 0,
     addEventListener(name, listener) { windowListeners[name] = listener; },
-    requestAnimationFrame(callback) { frames.push(callback); return frames.length; },
     matchMedia() { return media; },
     IntersectionObserver: class {
       constructor(callback) { this.callback = callback; this.observed = []; this.unobserved = []; observers.push(this); }
@@ -76,23 +68,8 @@ function loadPage(reduceMotion = false, featuredCards = [], serviceRows = [], st
     if (timer.active) timer.callback();
   }
   vm.runInNewContext(fs.readFileSync('js/main.js', 'utf8'), { document, window, setTimeout, clearTimeout });
-  return { toggle, nav, header, word, links, documentListeners, windowListeners, window, media, timers, observers, runNextTimer, runNextFrame() { frames.shift()?.(); } };
+  return { toggle, nav, word, links, documentListeners, windowListeners, window, media, timers, observers, runNextTimer };
 }
-
-test('navigation follows scroll and descends without moving at the top', () => {
-  const page = loadPage();
-  assert.equal(page.header.style.values['--nav-follow'], '0px');
-  page.window.scrollY = 400;
-  page.windowListeners.scroll();
-  page.runNextFrame();
-  assert.equal(page.header.style.values['--nav-follow'], '464px');
-  assert.equal(page.header.classList.contains('is-scrolled'), true);
-  page.window.scrollY = 0;
-  page.windowListeners.scroll();
-  page.runNextFrame();
-  assert.equal(page.header.style.values['--nav-follow'], '0px');
-  assert.equal(page.header.classList.contains('is-scrolled'), false);
-});
 
 test('mobile menu opens and closes from its button', () => {
   const page = loadPage();

@@ -49,10 +49,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .skip-link:focus { transform: translateY(0); }
 
 /* 3. Header */
-.site-header { position: absolute; z-index: 30; top: var(--frame-gap); right: var(--frame-gap); left: var(--frame-gap); color: var(--color-white); transform: translate3d(0, var(--nav-follow, 0px), 0); will-change: transform; }
+.site-header { position: absolute; z-index: 30; top: var(--frame-gap); right: var(--frame-gap); left: var(--frame-gap); color: var(--color-white); }
 .site-header__inner { position: relative; display: flex; align-items: center; justify-content: space-between; min-height: var(--header-height); gap: 1rem; }
-.site-header.is-scrolled .brand { margin: -0.55rem -0.75rem; padding: 0.55rem 0.75rem; border-radius: 0.75rem; background: var(--color-primary); box-shadow: 0 0.75rem 2rem rgb(12 24 20 / 18%); }
-.site-header.is-scrolled .menu-toggle, .site-header.is-scrolled .site-nav__cta { border-color: var(--color-primary); background: var(--color-primary); box-shadow: 0 0.75rem 2rem rgb(12 24 20 / 18%); }
 .brand { display: inline-flex; flex-direction: column; align-items: flex-start; flex-shrink: 0; line-height: 1; }
 .brand__name { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.075em; }
 .brand__mark { color: var(--color-accent); }
@@ -275,7 +273,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (hover: hover) and (pointer: fine) { .owner-path:hover > img { transform: scale(1.035); } }
 
 .contact-section { padding-block: 6rem 7rem; background: var(--color-paper); }
-#contact-form, #publicar, #servicios { scroll-margin-top: 14rem; }
+#contact-form { scroll-margin-top: 2rem; }
 .contact-section__layout { display: grid; gap: 3.5rem; }
 .contact-section__intro h2 { max-width: 11ch; margin: 0; font-size: clamp(2.8rem, 8vw, 5.25rem); font-weight: 500; letter-spacing: -0.067em; line-height: 1.04; }
 .contact-section__intro > p { max-width: 29rem; margin: 1.5rem 0 0; color: var(--color-muted); font-size: 1rem; line-height: 1.65; }

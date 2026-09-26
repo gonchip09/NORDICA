@@ -1,24 +1,5 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const siteNav = document.querySelector('.site-nav');
-const siteHeader = document.querySelector('.site-header');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-let headerFrame = 0;
-
-function syncHeaderPosition() {
-  headerFrame = 0;
-  const scroll = Math.max(0, window.scrollY);
-  const maxDescent = Math.min(window.innerHeight * 0.14, window.innerWidth < 1024 ? 72 : 112);
-  const descent = reducedMotion.matches ? 0 : Math.min(scroll * 0.16, maxDescent);
-  siteHeader.style.setProperty('--nav-follow', `${Math.round(scroll + descent)}px`);
-  siteHeader.classList.toggle('is-scrolled', scroll > 80);
-}
-
-function scheduleHeaderPosition() {
-  if (!headerFrame) headerFrame = window.requestAnimationFrame(syncHeaderPosition);
-}
-
-window.addEventListener('scroll', scheduleHeaderPosition, { passive: true });
-syncHeaderPosition();
 
 function closeMenu(restoreFocus = false) {
   menuToggle.setAttribute('aria-expanded', 'false');
@@ -48,7 +29,6 @@ document.querySelectorAll('.site-nav a').forEach((link) => {
 
 window.addEventListener('resize', () => {
   if (window.innerWidth >= 1024) closeMenu();
-  scheduleHeaderPosition();
 });
 
 const headlineWord = document.querySelector('.hero__word');
