@@ -46,6 +46,7 @@ if (typeof document !== 'undefined') {
     const empty = document.querySelector('#catalog-empty');
     const operation = form.elements.namedItem('operacion');
     const price = form.elements.namedItem('precio');
+    const priceHelp = document.querySelector('#catalog-price-help');
     const priceOptions = {
       comprar: [[250000, 'Hasta USD 250.000'], [400000, 'Hasta USD 400.000'], [600000, 'Hasta USD 600.000'], [900000, 'Hasta USD 900.000']],
       alquilar: [[35000, 'Hasta UYU 35.000'], [45000, 'Hasta UYU 45.000'], [60000, 'Hasta UYU 60.000'], [80000, 'Hasta UYU 80.000']],
@@ -54,9 +55,14 @@ if (typeof document !== 'undefined') {
     function setPriceOptions(selectedOperation, selectedPrice = '') {
       const options = priceOptions[selectedOperation];
       price.disabled = !options;
+      priceHelp.textContent = selectedOperation === 'comprar'
+        ? 'Precios de venta en USD.'
+        : selectedOperation === 'alquilar'
+          ? 'Alquileres en UYU por mes.'
+          : 'Elegí Comprar o Alquilar para filtrar por precio.';
       price.innerHTML = options
         ? `<option value="">Sin límite</option>${options.map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}`
-        : '<option value="">Elegí una operación</option>';
+        : '<option value="">Elegí primero</option>';
       if (options?.some(([value]) => String(value) === selectedPrice)) price.value = selectedPrice;
     }
 

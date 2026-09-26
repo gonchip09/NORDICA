@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=33">
+    <link rel="stylesheet" href="css/styles.css?v=34">
     <script src="js/main.js?v=10" defer></script>
-    <script src="js/newsletter.js?v=4" defer></script>
-    <script src="js/formulario.js?v=4" defer></script>
+    <script src="js/newsletter.js?v=5" defer></script>
+    <script src="js/formulario.js?v=5" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -42,8 +42,8 @@
       <section class="contact-hero" aria-labelledby="contact-title">
         <div class="contact-hero__content container">
           <h1 id="contact-title">Hablemos de tu próxima propiedad.</h1>
-          <p>Contanos qué tenés en mente. Toda buena decisión empieza con una conversación.</p>
-          <a class="button button--primary contact-hero__action" href="#contact-form">Ir al formulario</a>
+          <p>Probá el formulario de esta demostración sin enviar ni guardar tus datos.</p>
+          <a class="button button--primary contact-hero__action" href="#contact-form">Probar el formulario</a>
         </div>
         <figure class="contact-hero__visual">
           <img src="assets/images/casa-carrasco.jpg" width="1200" height="801" alt="Casa contemporánea de ladrillo y madera rodeada de árboles" fetchpriority="high" decoding="async">
@@ -80,13 +80,13 @@
       <section class="contact-section" aria-labelledby="contact-form-title">
         <div class="contact-section__layout container">
           <div class="contact-section__intro">
-            <h2 id="contact-form-title">Contanos tu idea.</h2>
-            <p>Si querés comprar, vender, alquilar o tasar, compartí los detalles. Este formulario es una demostración: completarlo no envía tus datos.</p>
+            <h2 id="contact-form-title">Simulá una consulta.</h2>
+            <p>Elegí el motivo y completá los campos para ver una confirmación de ejemplo.</p>
             <div class="contact-section__direct">
-              <h3>Otras vías de contacto</h3>
+              <h3>Datos de contacto de ejemplo</h3>
               <p>hola@nordica.example</p>
               <p>+598 2 000 0000</p>
-              <span>Datos demostrativos. No corresponden a una inmobiliaria real.</span>
+              <span>No reciben consultas.</span>
             </div>
           </div>
 
@@ -139,7 +139,7 @@
               <div class="contact-form__acceptance">
                 <div class="contact-form__acceptance-control">
                   <input id="contact-acceptance" name="aceptacion" type="checkbox" required aria-describedby="aceptacion-error">
-                  <label for="contact-acceptance">Entiendo que este formulario es una demostración y no envía datos. *</label>
+                  <label for="contact-acceptance">Entiendo que mis datos no se enviarán ni guardarán. *</label>
                 </div>
                 <span class="contact-field__error" id="aceptacion-error" aria-live="polite"></span>
               </div>
@@ -149,9 +149,9 @@
 
             <div class="contact-success" id="contact-success" role="status" tabindex="-1" hidden>
               <span class="contact-success__mark" aria-hidden="true"><span class="icon icon--check"></span></span>
-              <h3>Consulta simulada.</h3>
-              <p>Tu consulta no se envió ni guardó. Esta es una demostración del formulario.</p>
-              <button class="button button--primary" type="button">Escribir otra consulta</button>
+              <h3>Así se vería la confirmación.</h3>
+              <p>La simulación terminó sin enviar ni guardar datos.</p>
+              <button class="button button--primary" type="button">Probar otra consulta</button>
             </div>
           </div>
         </div>
@@ -181,7 +181,7 @@
             <p>Montevideo, Uruguay</p>
             <p>hola@nordica.example</p>
             <p>+598 2 000 0000</p>
-            <p class="site-footer__note">Datos de contacto demostrativos.</p>
+            <p class="site-footer__note">Datos de ejemplo; no reciben consultas.</p>
           </div>
 
         </div>

@@ -55,7 +55,7 @@ if (typeof document !== 'undefined' && document.body && typeof HTMLDialogElement
             </form>
             <div class="newsletter-dialog__success" role="status" hidden>
               <h3>Suscripción simulada.</h3>
-              <p>Tu correo no se envió ni guardó. Esta es una demostración del formulario.</p>
+              <p>No se envió ni guardó tu correo.</p>
               <a href="propiedades.html">Explorar propiedades <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
             </div>
             <p class="newsletter-dialog__note">Demostración: no enviamos ni guardamos tu correo.</p>
