@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es-UY">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f1eb">
+    <meta name="description" content="Detalle de una propiedad conceptual de Nórdica Propiedades.">
+    <title>Propiedad — Nórdica Propiedades</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=28">
+    <script src="js/main.js?v=9" defer></script>
+    <script src="js/newsletter.js?v=3" defer></script>
+    <script src="js/propiedades.js?v=6" defer></script>
+    <script src="js/propiedad.js?v=4" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="site-header__inner container">
+        <a class="brand" href="index.html" aria-label="Nórdica Propiedades, inicio">
+          <span class="brand__name">NÓRDICA<span class="brand__mark" aria-hidden="true">.</span></span>
+          <span class="brand__description">PROPIEDADES</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-controls="site-nav" aria-expanded="false"><span class="icon icon--menu" aria-hidden="true"></span></button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="index.html">Inicio</a></li>
+            <li><a class="site-nav__link is-current" href="propiedades.html" aria-current="page">Propiedades</a></li>
+            <li><a class="site-nav__link" href="index.html#servicios">Servicios</a></li>
+            <li><a class="site-nav__link" href="contacto.html">Contacto</a></li>
+          </ul>
+          <a class="site-nav__cta" href="contacto.html">Hablemos de tu búsqueda</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="detail-intro" aria-labelledby="detail-title">
+        <figure class="detail-intro__visual" id="detail-intro-visual" hidden>
+          <img id="detail-intro-image" alt="" width="1200" height="800" fetchpriority="high" decoding="async">
+        </figure>
+        <div class="detail-intro__inner container">
+          <a class="detail-intro__back" href="propiedades.html"><span class="icon icon--arrow-left" aria-hidden="true"></span>Volver a propiedades</a>
+          <h1 id="detail-title">Detalle de propiedad</h1>
+          <div class="detail-intro__meta" id="detail-intro-meta">
+            <p id="detail-location"></p>
+            <div><span id="detail-operation"></span><strong id="detail-price"></strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-missing container" id="detail-missing" aria-label="Propiedad no encontrada" hidden>
+        <p>La referencia puede haber cambiado o el enlace ya no está disponible.</p>
+        <a class="button button--dark" href="propiedades.html">Ver todas las propiedades</a>
+      </section>
+
+      <div id="detail-content" hidden>
+        <section class="detail-gallery-section" aria-label="Galería de imágenes ilustrativas">
+          <div class="detail-gallery" id="detail-gallery"></div>
+          <p class="detail-gallery__note container">Imágenes ilustrativas de este proyecto conceptual. Las fotografías complementarias pueden corresponder a distintos espacios.</p>
+        </section>
+
+        <section class="detail-body" aria-labelledby="detail-information-title">
+          <div class="detail-body__layout container">
+            <div class="detail-body__main">
+              <div class="detail-body__heading">
+                <h2 id="detail-information-title">La propiedad en detalle.</h2>
+                <p id="detail-reference"></p>
+              </div>
+
+              <dl class="detail-facts" id="detail-facts"></dl>
+
+              <div class="detail-body__section">
+                <h3>Una mirada al espacio.</h3>
+                <p id="detail-description"></p>
+              </div>
+
+              <div class="detail-body__section">
+                <h3>Características</h3>
+                <ul class="detail-features" id="detail-features"></ul>
+              </div>
+            </div>
+
+            <aside class="detail-visit" aria-labelledby="detail-visit-title">
+              <h2 id="detail-visit-title">¿Querés conocer esta propiedad?</h2>
+              <p>Completá los datos para simular una consulta de visita.</p>
+
+              <form id="visit-form" novalidate>
+                <input id="visit-property" name="propiedad" type="hidden">
+                <div class="detail-visit__field">
+                  <label for="visit-name">Nombre *</label>
+                  <input id="visit-name" name="nombre" type="text" autocomplete="given-name" required aria-describedby="visit-nombre-error">
+                  <span id="visit-nombre-error" class="detail-visit__error" aria-live="polite"></span>
+                </div>
+                <div class="detail-visit__field">
+                  <label for="visit-email">Email *</label>
+                  <input id="visit-email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="visit-email-error">
+                  <span id="visit-email-error" class="detail-visit__error" aria-live="polite"></span>
+                </div>
+                <div class="detail-visit__field">
+                  <label for="visit-phone">Teléfono</label>
+                  <input id="visit-phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="visit-telefono-error">
+                  <span id="visit-telefono-error" class="detail-visit__error" aria-live="polite"></span>
+                </div>
+                <div class="detail-visit__field">
+                  <label for="visit-message">Mensaje *</label>
+                  <textarea id="visit-message" name="mensaje" rows="4" minlength="10" required aria-describedby="visit-mensaje-error" placeholder="Contanos cuándo te gustaría visitarla"></textarea>
+                  <span id="visit-mensaje-error" class="detail-visit__error" aria-live="polite"></span>
+                </div>
+                <button class="button button--primary detail-visit__submit" type="submit">Simular consulta de visita</button>
+                <p class="detail-visit__note">Demostración: no se envían ni guardan datos.</p>
+              </form>
+
+              <div class="detail-visit__success" id="visit-success" role="status" tabindex="-1" hidden>
+                <span aria-hidden="true"><span class="icon icon--check"></span></span>
+                <h3>Consulta de visita simulada.</h3>
+                <p>Tu consulta no se envió ni guardó. Esta es una demostración del formulario.</p>
+                <button class="button button--primary" type="button">Escribir otra consulta</button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="detail-related" aria-labelledby="detail-related-title">
+          <div class="container">
+            <div class="detail-related__heading">
+              <h2 id="detail-related-title">Otras propiedades para mirar.</h2>
+              <a href="propiedades.html">Ver todas las propiedades <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+            </div>
+            <div class="detail-related__grid" id="detail-related"></div>
+            <p class="detail-related__note">Proyecto conceptual. Propiedades, imágenes, ubicaciones y precios ilustrativos.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog class="photo-viewer" id="photo-viewer" aria-labelledby="photo-viewer-title">
+      <div class="photo-viewer__layout">
+        <div class="photo-viewer__header">
+          <div>
+            <h2 id="photo-viewer-title"></h2>
+            <p id="photo-viewer-count"></p>
+          </div>
+          <button class="photo-viewer__close" id="photo-viewer-close" type="button" aria-label="Cerrar galería"><span class="icon icon--close" aria-hidden="true"></span></button>
+        </div>
+        <div class="photo-viewer__stage">
+          <button class="photo-viewer__arrow photo-viewer__arrow--previous" id="photo-viewer-previous" type="button" aria-label="Imagen anterior"><span class="icon icon--arrow-left" aria-hidden="true"></span></button>
+          <figure class="photo-viewer__figure">
+            <img id="photo-viewer-image" alt="">
+            <figcaption id="photo-viewer-caption"></figcaption>
+          </figure>
+          <button class="photo-viewer__arrow photo-viewer__arrow--next" id="photo-viewer-next" type="button" aria-label="Imagen siguiente"><span class="icon icon--arrow-right" aria-hidden="true"></span></button>
+        </div>
+        <div class="photo-viewer__footer">
+          <div class="photo-viewer__thumbnails" id="photo-viewer-thumbnails" aria-label="Elegir imagen"></div>
+          <p>Imágenes ilustrativas de este proyecto conceptual.</p>
+        </div>
+      </div>
+    </dialog>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        <div class="site-footer__masthead">
+          <a class="site-footer__brand" href="index.html" aria-label="Nórdica Propiedades, inicio">NÓRDICA<span aria-hidden="true">.</span></a>
+          <p>Espacios para lo que viene.</p>
+        </div>
+
+        <div class="site-footer__details">
+          <nav class="site-footer__group" aria-label="Navegación del pie de página">
+            <h2>Explorá</h2>
+            <ul>
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="propiedades.html">Propiedades</a></li>
+              <li><a href="index.html#servicios">Servicios</a></li>
+              <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+          </nav>
+
+          <div class="site-footer__group">
+            <h2>Hablemos</h2>
+            <p>Montevideo, Uruguay</p>
+            <p>hola@nordica.example</p>
+            <p>+598 2 000 0000</p>
+            <p class="site-footer__note">Datos de contacto demostrativos.</p>
+          </div>
+
+          <div class="site-footer__group">
+            <h2>Redes</h2>
+            <ul>
+              <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
+            <p class="site-footer__note">Enlaces de demostración a las plataformas.</p>
+          </div>
+        </div>
+
+        <div class="site-footer__bottom">
+          <p>Nórdica Propiedades · Proyecto conceptual.</p>
+          <a href="#contenido">Volver arriba <span class="icon icon--arrow-up" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

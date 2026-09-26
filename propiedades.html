@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es-UY">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f1eb">
+    <meta name="description" content="Explorá propiedades conceptuales de Nórdica: casas y apartamentos para comprar o alquilar, con filtros por ubicación, dormitorios y precio.">
+    <title>Propiedades — Nórdica Propiedades</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=28">
+    <script src="js/main.js?v=9" defer></script>
+    <script src="js/newsletter.js?v=3" defer></script>
+    <script src="js/propiedades.js?v=6" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="site-header__inner container">
+        <a class="brand" href="index.html" aria-label="Nórdica Propiedades, inicio">
+          <span class="brand__name">NÓRDICA<span class="brand__mark" aria-hidden="true">.</span></span>
+          <span class="brand__description">PROPIEDADES</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-controls="site-nav" aria-expanded="false"><span class="icon icon--menu" aria-hidden="true"></span></button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="index.html">Inicio</a></li>
+            <li><a class="site-nav__link is-current" href="propiedades.html" aria-current="page">Propiedades</a></li>
+            <li><a class="site-nav__link" href="index.html#servicios">Servicios</a></li>
+            <li><a class="site-nav__link" href="contacto.html">Contacto</a></li>
+          </ul>
+          <a class="site-nav__cta" href="contacto.html">Hablemos de tu búsqueda</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="catalog-hero" aria-labelledby="catalog-title">
+        <div class="catalog-hero__copy container">
+          <h1 id="catalog-title">Encontrá un lugar que se sienta tuyo.</h1>
+          <p>Casas y apartamentos seleccionados para distintas formas de vivir.</p>
+        </div>
+        <figure class="catalog-hero__visual">
+          <img src="assets/images/cta-vender.jpg" width="1800" height="1200" alt="Casa contemporánea de ladrillo iluminada al atardecer" fetchpriority="high" decoding="async">
+        </figure>
+      </section>
+
+      <section class="catalog" aria-labelledby="catalog-listings-title">
+        <div class="container">
+          <div class="catalog__header">
+            <h2 id="catalog-listings-title">Explorá las propiedades.</h2>
+            <p id="catalog-count" role="status" aria-live="polite">12 propiedades encontradas</p>
+          </div>
+
+          <form class="catalog-filters" id="catalog-filters" role="search" aria-label="Filtrar propiedades">
+            <div class="catalog-filter">
+              <label for="filter-operation">Operación</label>
+              <select id="filter-operation" name="operacion">
+                <option value="">Todas</option>
+                <option value="comprar">Comprar</option>
+                <option value="alquilar">Alquilar</option>
+              </select>
+            </div>
+            <div class="catalog-filter">
+              <label for="filter-type">Tipo</label>
+              <select id="filter-type" name="tipo">
+                <option value="">Todos</option>
+                <option value="casa">Casa</option>
+                <option value="apartamento">Apartamento</option>
+                <option value="terreno">Terreno</option>
+                <option value="local">Local</option>
+              </select>
+            </div>
+            <div class="catalog-filter catalog-filter--location">
+              <label for="filter-location">Ubicación</label>
+              <input id="filter-location" name="ubicacion" type="search" placeholder="Barrio o zona" autocomplete="off">
+            </div>
+            <div class="catalog-filter">
+              <label for="filter-bedrooms">Dormitorios</label>
+              <select id="filter-bedrooms" name="dormitorios">
+                <option value="">Todos</option>
+                <option value="1">1 o más</option>
+                <option value="2">2 o más</option>
+                <option value="3">3 o más</option>
+                <option value="4">4 o más</option>
+              </select>
+            </div>
+            <div class="catalog-filter">
+              <label for="filter-price">Precio máximo</label>
+              <select id="filter-price" name="precio" disabled>
+                <option value="">Elegí una operación</option>
+              </select>
+            </div>
+          </form>
+
+          <div class="catalog__toolbar">
+            <p>El precio se muestra en USD para venta y en UYU por mes para alquiler.</p>
+            <button id="catalog-clear" type="button">Limpiar filtros</button>
+          </div>
+
+          <div class="catalog__grid" id="catalog-grid"></div>
+
+          <div class="catalog-empty" id="catalog-empty" hidden>
+            <span class="catalog-empty__symbol" aria-hidden="true"><span class="icon icon--search"></span></span>
+            <h2>No encontramos propiedades con esos filtros.</h2>
+            <p>Probá con otra zona o ampliá tus criterios de búsqueda.</p>
+            <button class="button button--dark" id="catalog-empty-clear" type="button">Limpiar filtros</button>
+          </div>
+
+          <noscript><p class="catalog__disclaimer">Activá JavaScript para explorar las propiedades y usar los filtros.</p></noscript>
+          <p class="catalog__disclaimer">Proyecto conceptual. Propiedades, ubicaciones y precios ilustrativos.</p>
+        </div>
+      </section>
+
+      <section class="catalog-assistance" aria-labelledby="catalog-assistance-title">
+        <div class="catalog-assistance__inner container">
+          <h2 id="catalog-assistance-title">¿Todavía no encontraste tu lugar?</h2>
+          <a class="button button--primary" href="contacto.html?motivo=comprar">Contanos qué buscás</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        <div class="site-footer__masthead">
+          <a class="site-footer__brand" href="index.html" aria-label="Nórdica Propiedades, inicio">NÓRDICA<span aria-hidden="true">.</span></a>
+          <p>Espacios para lo que viene.</p>
+        </div>
+
+        <div class="site-footer__details">
+          <nav class="site-footer__group" aria-label="Navegación del pie de página">
+            <h2>Explorá</h2>
+            <ul>
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="propiedades.html">Propiedades</a></li>
+              <li><a href="index.html#servicios">Servicios</a></li>
+              <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+          </nav>
+
+          <div class="site-footer__group">
+            <h2>Hablemos</h2>
+            <p>Montevideo, Uruguay</p>
+            <p>hola@nordica.example</p>
+            <p>+598 2 000 0000</p>
+            <p class="site-footer__note">Datos de contacto demostrativos.</p>
+          </div>
+
+          <div class="site-footer__group">
+            <h2>Redes</h2>
+            <ul>
+              <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
+            <p class="site-footer__note">Enlaces de demostración a las plataformas.</p>
+          </div>
+        </div>
+
+        <div class="site-footer__bottom">
+          <p>Nórdica Propiedades · Proyecto conceptual.</p>
+          <a href="#contenido">Volver arriba <span class="icon icon--arrow-up" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

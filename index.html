@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="es-UY">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f1eb">
+    <meta name="description" content="Nórdica Propiedades es un proyecto conceptual de una inmobiliaria contemporánea en Montevideo.">
+    <title>Nórdica Propiedades — Espacios para una nueva etapa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=28">
+    <script src="js/main.js?v=9" defer></script>
+    <script src="js/newsletter.js?v=3" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="site-header__inner container">
+        <a class="brand" href="index.html" aria-label="Nórdica Propiedades, inicio">
+          <span class="brand__name">NÓRDICA<span class="brand__mark" aria-hidden="true">.</span></span>
+          <span class="brand__description">PROPIEDADES</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-controls="site-nav" aria-expanded="false"><span class="icon icon--menu" aria-hidden="true"></span></button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link is-current" href="index.html" aria-current="page">Inicio</a></li>
+            <li><a class="site-nav__link" href="propiedades.html">Propiedades</a></li>
+            <li><a class="site-nav__link" href="index.html#servicios">Servicios</a></li>
+            <li><a class="site-nav__link" href="contacto.html">Contacto</a></li>
+          </ul>
+          <a class="site-nav__cta" href="propiedades.html">Encontrá tu próximo hogar</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__content">
+          <div class="hero__copy">
+            <h1 id="hero-title" aria-label="Espacios para una nueva etapa.">Espacios para una nueva <span class="hero__word" aria-hidden="true">etapa</span></h1>
+            <p class="hero__description">Encontrá propiedades seleccionadas para vivir, invertir o comenzar algo nuevo.</p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="propiedades.html">Explorar propiedades</a>
+              <a class="button button--text" href="contacto.html?motivo=vender">Vender mi propiedad</a>
+            </div>
+          </div>
+
+          <section class="property-search" aria-labelledby="property-search-title">
+            <h2 class="visually-hidden" id="property-search-title">Buscá propiedades</h2>
+
+            <form class="property-search__form" action="propiedades.html" method="get" role="search">
+              <div class="property-search__field">
+                <label for="search-operation">Operación</label>
+                <select id="search-operation" name="operacion">
+                  <option value="comprar">Comprar</option>
+                  <option value="alquilar">Alquilar</option>
+                </select>
+              </div>
+
+              <div class="property-search__field">
+                <label for="search-type">Tipo</label>
+                <select id="search-type" name="tipo">
+                  <option value="">Todos</option>
+                  <option value="casa">Casa</option>
+                  <option value="apartamento">Apartamento</option>
+                  <option value="terreno">Terreno</option>
+                  <option value="local">Local</option>
+                </select>
+              </div>
+
+              <div class="property-search__field">
+                <label for="search-location">Ubicación</label>
+                <input id="search-location" name="ubicacion" type="search" placeholder="Barrio o zona" autocomplete="off">
+              </div>
+
+              <div class="property-search__field">
+                <label for="search-bedrooms">Dormitorios</label>
+                <select id="search-bedrooms" name="dormitorios">
+                  <option value="">Todos</option>
+                  <option value="1">1 o más</option>
+                  <option value="2">2 o más</option>
+                  <option value="3">3 o más</option>
+                  <option value="4">4 o más</option>
+                </select>
+              </div>
+
+              <button class="property-search__submit" type="submit">Buscar propiedades</button>
+            </form>
+          </section>
+        </div>
+
+        <figure class="hero__visual">
+          <img src="assets/images/hero-interior.jpg" width="1800" height="1200" alt="Interior contemporáneo luminoso con ventanales, escalera y materiales naturales" fetchpriority="high" decoding="async">
+        </figure>
+      </section>
+
+      <section class="featured" id="propiedades-destacadas" aria-labelledby="featured-title">
+        <div class="container">
+          <div class="featured__header">
+            <div>
+              <h2 id="featured-title">Propiedades seleccionadas</h2>
+              <p>Espacios con distintas formas de sentirse en casa.</p>
+            </div>
+            <a class="featured__all" href="propiedades.html">Ver todas las propiedades <span class="icon icon--arrow-up-right" aria-hidden="true"></span></a>
+          </div>
+
+          <div class="featured__grid">
+            <article class="featured-property featured-property--wide">
+              <a class="featured-property__link" href="propiedad.html?id=casa-carrasco">
+                <div class="featured-property__media">
+                  <img src="assets/images/casa-carrasco.jpg" width="1200" height="801" alt="Casa contemporánea de ladrillo y madera entre árboles" loading="lazy" decoding="async">
+                  <span class="featured-property__badge">En venta</span>
+                  <span class="featured-property__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+                </div>
+                <div class="featured-property__details">
+                  <div class="featured-property__heading">
+                    <p>Casa · Carrasco, Montevideo</p>
+                    <h3>Casa entre árboles</h3>
+                  </div>
+                  <p class="featured-property__price">USD 690.000</p>
+                </div>
+                <ul class="featured-property__specs" aria-label="Características de la propiedad">
+                  <li>4 dormitorios</li><li>3 baños</li><li>280 m²</li>
+                </ul>
+              </a>
+            </article>
+
+            <article class="featured-property">
+              <a class="featured-property__link" href="propiedad.html?id=apartamento-pocitos">
+                <div class="featured-property__media">
+                  <img src="assets/images/apartamento-pocitos.jpg" width="1200" height="1800" alt="Comedor luminoso con mesa de madera y lámparas colgantes" loading="lazy" decoding="async">
+                  <span class="featured-property__badge">En venta</span>
+                  <span class="featured-property__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+                </div>
+                <div class="featured-property__details">
+                  <div class="featured-property__heading">
+                    <p>Apartamento · Pocitos, Montevideo</p>
+                    <h3>Ambientes con luz natural</h3>
+                  </div>
+                  <p class="featured-property__price">USD 285.000</p>
+                </div>
+                <ul class="featured-property__specs" aria-label="Características de la propiedad">
+                  <li>3 dormitorios</li><li>2 baños</li><li>112 m²</li>
+                </ul>
+              </a>
+            </article>
+
+            <article class="featured-property">
+              <a class="featured-property__link" href="propiedad.html?id=loft-ciudad-vieja">
+                <div class="featured-property__media">
+                  <img src="assets/images/loft-ciudad-vieja.jpg" width="1200" height="1600" alt="Loft con ventanales altos y sala de estar de estilo industrial" loading="lazy" decoding="async">
+                  <span class="featured-property__badge">En alquiler</span>
+                  <span class="featured-property__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+                </div>
+                <div class="featured-property__details">
+                  <div class="featured-property__heading">
+                    <p>Loft · Ciudad Vieja, Montevideo</p>
+                    <h3>Loft de escala abierta</h3>
+                  </div>
+                  <p class="featured-property__price">UYU 49.000 / mes</p>
+                </div>
+                <ul class="featured-property__specs" aria-label="Características de la propiedad">
+                  <li>1 dormitorio</li><li>1 baño</li><li>90 m²</li>
+                </ul>
+              </a>
+            </article>
+
+            <article class="featured-property">
+              <a class="featured-property__link" href="propiedad.html?id=apartamento-cordon">
+                <div class="featured-property__media">
+                  <img src="assets/images/apartamento-cordon.jpg" width="1200" height="800" alt="Apartamento vacío con piso de madera y ventanas amplias" loading="lazy" decoding="async">
+                  <span class="featured-property__badge">En alquiler</span>
+                  <span class="featured-property__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+                </div>
+                <div class="featured-property__details">
+                  <div class="featured-property__heading">
+                    <p>Apartamento · Cordón, Montevideo</p>
+                    <h3>Un espacio para empezar</h3>
+                  </div>
+                  <p class="featured-property__price">UYU 36.000 / mes</p>
+                </div>
+                <ul class="featured-property__specs" aria-label="Características de la propiedad">
+                  <li>2 dormitorios</li><li>1 baño</li><li>84 m²</li>
+                </ul>
+              </a>
+            </article>
+
+            <article class="featured-property">
+              <a class="featured-property__link" href="propiedad.html?id=apartamento-punta-carretas">
+                <div class="featured-property__media">
+                  <img src="assets/images/apartamento-punta-carretas.jpg" width="1200" height="800" alt="Cocina abierta con isla y sala de estar luminosa" loading="lazy" decoding="async">
+                  <span class="featured-property__badge">En venta</span>
+                  <span class="featured-property__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+                </div>
+                <div class="featured-property__details">
+                  <div class="featured-property__heading">
+                    <p>Apartamento · Punta Carretas, Montevideo</p>
+                    <h3>Ambientes para compartir</h3>
+                  </div>
+                  <p class="featured-property__price">USD 340.000</p>
+                </div>
+                <ul class="featured-property__specs" aria-label="Características de la propiedad">
+                  <li>3 dormitorios</li><li>2 baños</li><li>128 m²</li>
+                </ul>
+              </a>
+            </article>
+
+            <article class="featured-property featured-property--wide">
+              <a class="featured-property__link" href="propiedad.html?id=casa-parque-miramar">
+                <div class="featured-property__media">
+                  <img src="assets/images/casa-parque-miramar.jpg" width="1200" height="801" alt="Casa moderna con jardín verde y ventanales al exterior" loading="lazy" decoding="async">
+                  <span class="featured-property__badge">En venta</span>
+                  <span class="featured-property__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+                </div>
+                <div class="featured-property__details">
+                  <div class="featured-property__heading">
+                    <p>Casa · Parque Miramar, Canelones</p>
+                    <h3>Jardín y vida al aire libre</h3>
+                  </div>
+                  <p class="featured-property__price">USD 420.000</p>
+                </div>
+                <ul class="featured-property__specs" aria-label="Características de la propiedad">
+                  <li>3 dormitorios</li><li>2 baños</li><li>190 m²</li>
+                </ul>
+              </a>
+            </article>
+          </div>
+
+          <p class="featured__disclaimer">Proyecto conceptual. Propiedades, ubicaciones y precios ilustrativos.</p>
+        </div>
+      </section>
+
+      <section class="services" id="servicios" aria-labelledby="services-title">
+        <div class="services__inner container">
+          <div class="services__intro">
+            <h2 id="services-title">Más que encontrar una propiedad.</h2>
+            <p>Te acompañamos en cada paso para que tomes decisiones con claridad.</p>
+          </div>
+
+          <ul class="services__list">
+            <li class="service-row">
+              <a class="service-row__link" href="propiedades.html?operacion=comprar">
+                <span class="service-row__number" aria-hidden="true">01</span>
+                <span class="service-row__content">
+                  <span class="service-row__title">Comprar</span>
+                  <span class="service-row__description">Encontramos propiedades que se adapten a tus necesidades.</span>
+                </span>
+                <span class="service-row__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+              </a>
+            </li>
+            <li class="service-row">
+              <a class="service-row__link" href="contacto.html?motivo=vender">
+                <span class="service-row__number" aria-hidden="true">02</span>
+                <span class="service-row__content">
+                  <span class="service-row__title">Vender</span>
+                  <span class="service-row__description">Presentamos tu propiedad con el cuidado que merece para darle mayor visibilidad.</span>
+                </span>
+                <span class="service-row__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+              </a>
+            </li>
+            <li class="service-row">
+              <a class="service-row__link" href="propiedades.html?operacion=alquilar">
+                <span class="service-row__number" aria-hidden="true">03</span>
+                <span class="service-row__content">
+                  <span class="service-row__title">Alquilar</span>
+                  <span class="service-row__description">Hacemos más simple la búsqueda de un lugar para vivir.</span>
+                </span>
+                <span class="service-row__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+              </a>
+            </li>
+            <li class="service-row">
+              <a class="service-row__link" href="contacto.html?motivo=tasacion">
+                <span class="service-row__number" aria-hidden="true">04</span>
+                <span class="service-row__content">
+                  <span class="service-row__title">Tasaciones</span>
+                  <span class="service-row__description">Te orientamos para estimar el valor de tu propiedad con criterio.</span>
+                </span>
+                <span class="service-row__arrow" aria-hidden="true"><span class="icon icon--arrow-up-right"></span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="story" aria-labelledby="story-title">
+        <div class="story__layout container">
+          <figure class="story__visual">
+            <img src="assets/images/historia-interior.jpg" width="1800" height="1200" alt="Sala contemporánea de doble altura abierta hacia un jardín" loading="lazy" decoding="async">
+          </figure>
+          <div class="story__copy">
+            <h2 id="story-title">Cada propiedad tiene una historia. La próxima puede ser la tuya.</h2>
+            <a class="button button--dark" href="propiedades.html">Ver propiedades</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="process" id="proceso" aria-labelledby="process-title">
+        <div class="container">
+          <h2 id="process-title">Tu próximo espacio, paso a paso.</h2>
+          <ol class="process__steps">
+            <li class="process__step">
+              <span class="process__number" aria-hidden="true">01</span>
+              <p>Contanos qué estás buscando.</p>
+            </li>
+            <li class="process__step">
+              <span class="process__number" aria-hidden="true">02</span>
+              <p>Explorá propiedades seleccionadas.</p>
+            </li>
+            <li class="process__step">
+              <span class="process__number" aria-hidden="true">03</span>
+              <p>Coordiná una visita.</p>
+            </li>
+            <li class="process__step">
+              <span class="process__number" aria-hidden="true">04</span>
+              <p>Encontrá tu próximo espacio.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="sell-cta" id="vender" aria-labelledby="sell-cta-title">
+        <div class="sell-cta__content">
+          <h2 id="sell-cta-title">¿Estás pensando en vender tu propiedad?</h2>
+          <p>Conversemos sobre el valor de tu propiedad y el mejor camino para venderla.</p>
+          <a class="button button--primary" href="contacto.html?motivo=vender">Solicitar asesoramiento</a>
+        </div>
+        <figure class="sell-cta__visual">
+          <img src="assets/images/cta-vender.jpg" width="1800" height="1200" alt="Casa contemporánea de ladrillo iluminada al atardecer" loading="lazy" decoding="async">
+        </figure>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner container">
+        <div class="site-footer__masthead">
+          <a class="site-footer__brand" href="index.html" aria-label="Nórdica Propiedades, inicio">NÓRDICA<span aria-hidden="true">.</span></a>
+          <p>Espacios para lo que viene.</p>
+        </div>
+
+        <div class="site-footer__details">
+          <nav class="site-footer__group" aria-label="Navegación del pie de página">
+            <h2>Explorá</h2>
+            <ul>
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="propiedades.html">Propiedades</a></li>
+              <li><a href="index.html#servicios">Servicios</a></li>
+              <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+          </nav>
+
+          <div class="site-footer__group">
+            <h2>Hablemos</h2>
+            <p>Montevideo, Uruguay</p>
+            <p>hola@nordica.example</p>
+            <p>+598 2 000 0000</p>
+            <p class="site-footer__note">Datos de contacto demostrativos.</p>
+          </div>
+
+          <div class="site-footer__group">
+            <h2>Redes</h2>
+            <ul>
+              <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
+            <p class="site-footer__note">Enlaces de demostración a las plataformas.</p>
+          </div>
+        </div>
+
+        <div class="site-footer__bottom">
+          <p>Nórdica Propiedades · Proyecto conceptual.</p>
+          <a href="#contenido">Volver arriba <span class="icon icon--arrow-up" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
